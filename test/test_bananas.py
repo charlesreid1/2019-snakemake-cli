@@ -1,5 +1,4 @@
 from unittest import TestCase
-from test_utils import captured_output
 from subprocess import call, Popen, PIPE
 import os
 import shutil, tempfile
