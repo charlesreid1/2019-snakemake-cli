@@ -61,17 +61,16 @@ class TestBananas(TestCase):
             p_out = p[0].decode('utf-8').strip()
             p_err = p[1].decode('utf-8').strip()
 
-            self.assertIn('bananas',p_out)
+            self.assertIn('details',p_out)
+
+            # clean up
+            call(['rm','-f','hello.txt'])
 
 
     @classmethod
     def tearDownClass(self):
         """
         clean up after the tests
-        
-        we don't do anything here, but if we set up
-        a temporary directory with a temporary Snakefile,
-        we would tear it down here.
         """
         pass
 
