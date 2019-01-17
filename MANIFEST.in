@@ -1,1 +1,1 @@
-graft cli/Snakefile
+include cli/Snakefile
