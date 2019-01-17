@@ -1,5 +1,8 @@
 # 2019-snakemake-cli
 
+[![travis](https://img.shields.io/travis/charlesreid1/2019-snakemake-cli.svg)](https://travis-ci.org/charlesreid1/2019-snakemake-cli.svg)
+[![license](https://img.shields.io/github/license/charlesreid1/2019-snakemake-cli.svg)](https://github.com/charlesreid1/2019-snakemake-cli/blob/master/LICENSE)
+
 An example of a Snakemake command line interface
 bundled up as an installable Python package.
 
