@@ -24,5 +24,6 @@ setup(name='bananas',
       {program} = cli.command:main
       """.format(program = _program),
       install_requires=required,
+      include_package_data=True,
       keywords=[],
       zip_safe=False)
