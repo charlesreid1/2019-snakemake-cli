@@ -12,6 +12,7 @@ from . import _program
 
 
 thisdir = os.path.abspath(os.path.dirname(__file__))
+parentdir = os.path.join(thisdir,'..')
 
 def main(sysargs = sys.argv[1:]):
 
@@ -28,9 +29,17 @@ bananas: run snakemake workflows, using the given workflow name & parameters fil
     args = parser.parse_args(sysargs)
 
     # first, find the Snakefile
-    snakefile = os.path.join(thisdir, 'Snakefile')
-    if not os.path.exists(snakefile):
-        sys.stderr.write('Error: cannot find Snakefile at {}\n'.format(snakefile))
+    snakefile_this      = os.path.join(thisdir,"Snakefile")
+    snakefile_parent    = os.path.join(parentdir,"Snakefile")
+    if os.path.exists(snakefile_this):
+        snakefile = snakefile_this
+    elif os.path.exists(snakefile_parent):
+        snakefile = snakefile_parent
+    else:
+        msg = 'Error: cannot find Snakefile at any of the following locations:\n'
+        msg += '{}\n'.format(snakefile_this)
+        msg += '{}\n'.format(snakefile_parent)
+        sys.stderr.write(msg)
         sys.exit(-1)
 
     # next, find the workflow config file
