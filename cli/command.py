@@ -13,6 +13,7 @@ from . import _program
 
 thisdir = os.path.abspath(os.path.dirname(__file__))
 parentdir = os.path.join(thisdir,'..')
+cwd = os.getcwd()
 
 def main(sysargs = sys.argv[1:]):
 
@@ -44,34 +45,32 @@ bananas: run snakemake workflows, using the given workflow name & parameters fil
 
     # next, find the workflow config file
     workflowfile = None
-    if os.path.exists(args.workflowfile) and not os.path.isdir(args.workflowfile):
-        workflowfile = args.workflowfile
-    else:
-        for suffix in ('', '.json'):
-            tryfile = os.path.join(thisdir, args.workflowfile + suffix)
-            if os.path.exists(tryfile) and not os.path.isdir(tryfile):
-                sys.stderr.write('Found workflowfile at {}\n'.format(tryfile))
-                workflowfile = tryfile
-                break
+    w1 = os.path.join(cwd,args.workflowfile)
+    w2 = os.path.join(cwd,args.workflowfile+'.json')
+    if os.path.exists(w1) and not os.path.isdir(w1):
+        workflowfile = w1
+    elif os.path.exists(w2) and not os.path.isdir(w2):
+        workflowfile = w2
 
     if not workflowfile:
-        sys.stderr.write('Error: cannot find workflowfile {}\n'.format(args.workflowfile))
+        msg = 'Error: cannot find workflowfile {} or {} '.format(w1,w2)
+        msg += 'in directory {}\n'.format(cwd)
+        sys.stderr.write(msg)
         sys.exit(-1)
 
     # next, find the workflow params file
     paramsfile = None
-    if os.path.exists(args.paramsfile) and not os.path.isdir(args.paramsfile):
-        paramsfile = args.paramsfile
-    else:
-        for suffix in ('', '.json'):
-            tryfile = os.path.join(thisdir, args.paramsfile + suffix)
-            if os.path.exists(tryfile) and not os.path.isdir(tryfile):
-                sys.stderr.write('Found paramsfile at {}\n'.format(tryfile))
-                paramsfile = tryfile
-                break
+    p1 = os.path.join(cwd,args.paramsfile)
+    p2 = os.path.join(cwd,args.paramsfile+'.json')
+    if os.path.exists(p1) and not os.path.isdir(p1):
+        paramsfile = p1
+    elif os.path.exists(p2) and not os.path.isdir(p2):
+        paramsfile = p2
 
     if not paramsfile:
-        sys.stderr.write('Error: cannot find paramsfile {}\n'.format(args.paramsfile))
+        msg = 'Error: cannot find paramsfile {} or {} '.format(p1,p2)
+        msg += 'in directory {}\n'.format(cwd)
+        sys.stderr.write(msg)
         sys.exit(-1)
 
     with open(workflowfile, 'rt') as fp:
