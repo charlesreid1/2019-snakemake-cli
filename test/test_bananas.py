@@ -20,6 +20,7 @@ each test has a unittest TestCase defined.
 pytest will automatically find these tests.
 """
 
+
 class TestBananas(TestCase):
     """
     simple bananas test class
