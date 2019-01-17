@@ -8,7 +8,7 @@ command line tool, but this tool can also look
 in the user's working directory for Snakefiles.
 
 Snakemake functionality is provided through
-a command line tool called `banana`.
+a command line tool called `bananas`.
 
 # Quickstart
 
@@ -25,7 +25,7 @@ virtual environment:
 pip install -r requirements.txt
 ```
 
-Now install the `banana` command line tool:
+Now install the `bananas` command line tool:
 
 ```
 python setup.py build install
@@ -37,7 +37,7 @@ Now you can run
 which banana
 ```
 
-and you should see `banana` in your Python 
+and you should see `bananas` in your Python 
 distribution's `bin/` directory.
 
 ## Running banana
@@ -49,14 +49,14 @@ Run the hello workflow with Amy params:
 
 ```
 rm -f hello.txt
-banana workflow-hello params-amy
+bananas workflow-hello params-amy
 ```
 
 Run the hello workflow with Beth params:
 
 ```
 rm -f hello.txt
-banana workflow-hello params-beth
+bananas workflow-hello params-beth
 ```
 
 Run the goodbye workflow with Beth params:
