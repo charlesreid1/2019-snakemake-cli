@@ -1,6 +1,5 @@
-#! /usr/bin/env python
 """
-Execution script for snakemake workflows.
+Command line interface driver for snakemake workflows
 """
 import argparse
 import os.path
@@ -9,11 +8,25 @@ import sys
 import pprint
 import json
 
+from . import _program
+
 
 thisdir = os.path.abspath(os.path.dirname(__file__))
 
+def main(sysargs = sys.argv[1:]):
 
-def main(args):
+    parser = argparse.ArgumentParser(prog = _program, description='bananas: run snakemake workflows', usage='''bananas <workflow> <parameters> [<target>]
+
+bananas: run snakemake workflows, using the given workflow name & parameters file.
+
+''')
+
+    parser.add_argument('workflowfile')
+    parser.add_argument('paramsfile')
+    parser.add_argument('-n', '--dry-run', action='store_true')
+    parser.add_argument('-f', '--force', action='store_true')
+    args = parser.parse_args(sysargs)
+
     # first, find the Snakefile
     snakefile = os.path.join(thisdir, 'Snakefile')
     if not os.path.exists(snakefile):
@@ -66,10 +79,11 @@ def main(args):
     print('\ttarget: {}'.format(target))
     print('--------')
 
-    # run!!
+    # run bananas!!
     status = snakemake.snakemake(snakefile, configfile=paramsfile,
                                  targets=[target], printshellcmds=True,
-                                 dryrun=args.dry_run, config=config)
+                                 dryrun=args.dry_run, forceall=args.force,
+                                 config=config)
 
     if status: # translate "success" into shell exit code of 0
        return 0
@@ -77,15 +91,5 @@ def main(args):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='run snakemake workflows', usage='''run <workflow> <parameters> [<target>]
+    main()
 
-Run snakemake workflows, using the given workflow name & parameters file.
-
-''')
-
-    parser.add_argument('workflowfile')
-    parser.add_argument('paramsfile')
-    parser.add_argument('-n', '--dry-run', action='store_true')
-    args = parser.parse_args()
-
-    sys.exit(main(args))
