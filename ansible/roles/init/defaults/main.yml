@@ -1,0 +1,15 @@
+---
+# defaults file for dotfiles
+
+# Machine name
+machine_name: yeti
+
+# Principal user
+username: ubuntu
+home_dir: "/home/{{ username }}"
+
+# Pyenv variables
+pyenv_version: v1.2.1
+python36_version: 3.6.4
+miniconda3_version: miniconda3-4.3.30
+

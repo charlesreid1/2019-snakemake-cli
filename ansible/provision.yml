@@ -1,0 +1,10 @@
+---
+# this is mainly in case if
+# we are using ubuntu 18, which 
+# comes with python3 and not python2
+- name: provision the yeti worker nodes and prepare them for Ansible
+  hosts: servers
+  gather_facts: no
+  pre_tasks:
+    - name: install python2
+      raw: sudo apt-get -y install python

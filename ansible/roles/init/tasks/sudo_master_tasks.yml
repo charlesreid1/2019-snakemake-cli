@@ -1,0 +1,76 @@
+---
+# perform sudo tasks
+
+##############
+# Machine name
+
+- name: Set machine name
+  become: yes
+  command: "hostname {{ machine_name }}"
+
+- name: Add entries to the hosts 
+  become: yes
+  command: "{{ item }}"
+  with_items:
+    - "echo {{ machine_name }} > /etc/hostname"
+    - "echo 127.0.0.1 {{ machine_name }} >> /etc/hosts"
+
+
+############
+# System
+
+- name: Install packages
+  become: yes
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+    - git 
+    - build-essential
+    - curl
+    - wget
+    - graphviz
+    - awscli
+    - openssh-server
+
+- name: Remove dependencies that are no longer required
+  become: yes
+  apt:
+    autoremove: yes
+
+
+#####################
+# SSH key stuff
+
+
+- name: Generate SSH keys for root user
+  become: yes
+  shell: ssh-keygen -t rsa -N '' -b 4096 -f /root/.ssh/id_rsa -q 
+
+- name: Set permissions on .ssh directory
+  become: yes
+  file:
+  - path: /root/.ssh
+    recurse: yes
+    mode: "u+rwx,g-wx,o-rwx"
+
+
+##########################
+# Docker stuff
+
+- name: Install docker
+  become: yes
+  command: "bash <( curl https://get.docker.com/ )"
+
+- name: Install docker-compose
+  become: yes
+  command: "{{ item }}"
+  with_items:
+    - "curl -L \"https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose"
+    - "chmod +x /usr/local/bin/docker-compose"
+
+- name: Add principal user to docker
+  become: yes
+  command: "usermod -aG docker {{ username }}"
+

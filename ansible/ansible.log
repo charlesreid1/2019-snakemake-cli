@@ -1,0 +1,50 @@
+2019-01-20 18:24:27,727 p=4118 u=charles |   [WARNING]: Could not match supplied host pattern, ignoring: vagrantsnake
+
+2019-01-20 18:24:27,727 p=4118 u=charles |  ERROR! Specified hosts and/or --limit does not match any hosts
+2019-01-20 18:27:20,831 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-01-20 18:27:20,865 p=4292 u=charles |   ____________________________________________________________ 
+/ PLAY [provision the yeti worker nodes and prepare them for \
+\ Ansible]                                                   /
+ ------------------------------------------------------------ 
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+
+2019-01-20 18:27:20,879 p=4292 u=charles |  ERROR! Attempting to decrypt but no vault secrets found
+2019-01-20 18:28:04,776 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-01-20 18:28:04,809 p=4353 u=charles |   ____________________________________________________________ 
+/ PLAY [provision the yeti worker nodes and prepare them for \
+\ Ansible]                                                   /
+ ------------------------------------------------------------ 
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+
+2019-01-20 18:28:04,865 p=4353 u=charles |   ________________________ 
+< TASK [install python2] >
+ ------------------------ 
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+
+2019-01-20 18:28:16,297 p=4353 u=charles |  changed: [vagrantsnake]
+2019-01-20 18:28:16,333 p=4353 u=charles |   ____________ 
+< PLAY RECAP >
+ ------------ 
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+
+2019-01-20 18:28:16,334 p=4353 u=charles |  vagrantsnake               : ok=1    changed=1    unreachable=0    failed=0   

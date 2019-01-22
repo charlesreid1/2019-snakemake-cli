@@ -1,0 +1,26 @@
+---
+# perform tasks for users
+
+
+#####################
+# SSH key stuff
+
+- name: Generate SSH keys for this user
+  shell: "ssh-keygen -t rsa -N '' -b 4096 -f {{ home_dir }}/.ssh/id_rsa -q"
+
+- name: Set permissions on user .ssh directory
+  become: yes
+  file:
+  - path: "{{ home_dir }}/.ssh"
+    recurse: yes
+    owner: "{{ username }}"
+    mode: "u+rwx,g-wx,o-rwx"
+
+
+- name: Copy the authorized keys file into the .ssh directory
+  become: yes
+  file:
+    src: authorized_keys
+    dest: "{{ home_dir }}/.ssh/authorized_keys"
+    mode: 0600
+

@@ -1,0 +1,18 @@
+---
+# bootstrap the user's dotfiles
+
+- name: dotfiles
+  copy:
+    src: "{{ item }}"
+    dest: "{{ home_dir }}/.{{ item }}"
+    owner: "{{ username }}"
+  with_items:
+    - aliases
+    - bash_profile
+    - bash_prompt
+    - bashrc
+    - gitconfig
+    - hushlogin
+    - inputrc
+    - vimrc
+

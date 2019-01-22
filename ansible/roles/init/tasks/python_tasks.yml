@@ -1,0 +1,84 @@
+---
+# python tasks
+
+
+#######################
+# Pyenv
+
+- name: 'Install pyenv {{pyenv_version}}'
+  become: true
+  environment:
+    PYENV_ROOT: /opt/pyenv
+    PATH: '/opt/pyenv/bin:{{ansible_env.PATH}}'
+  git:
+    repo: https://github.com/pyenv/pyenv.git
+    dest: /opt/pyenv
+    version: '{{pyenv_version}}'
+  tags:
+    - pyenv
+    - python
+
+
+#######################
+# Python 3.6.x
+
+#- name: Install Python 3.6 via pyenv
+#  become: true
+#  environment:
+#    PYENV_ROOT: /opt/pyenv
+#    PATH: '/opt/pyenv/bin:{{ansible_env.PATH}}'
+#    PYTHON36_VERSION: '{{python36_version}}'
+#  block:
+#    - name: 'Install Python {{python36_version}}'
+#      command: pyenv install -s "$PYTHON36_VERSION"
+#    - name: Set global pyenv python to python 3.6
+#      command: pyenv global system "$PYTHON36_VERSION"
+#    - name: Pip install virtualenv
+#      command: pip install virtualenv
+#  tags:
+#    - pyenv
+#    - python
+
+
+#######################
+# Conda
+
+- name: Install Miniconda 3.x via pyenv
+  become: true
+  environment:
+    PYENV_ROOT: /opt/pyenv
+    PATH: "/opt/pyenv/bin:{{ansible_env.PATH}}"
+    CONDA_VERSION: "{{ miniconda3_version }}"
+  block:
+    - name: "Install Miniconda {{ miniconda3_version }}"
+      command: pyenv install -s "$CONDA_VERSION"
+    - name: Set global pyenv python to conda
+      command: pyenv global system "$CONDA_VERSION"
+    - name: Pip install virtualenv
+      command: pip install virtualenv
+  tags:
+    - pyenv
+    - conda
+
+
+#####################
+# Snakemake
+
+- name: Install snakemake
+  become: true
+  block:
+    - name: Add R conda channel
+      command: conda config --add channels r
+    - name: Add default conda channel
+      command: conda config --add channels defaults
+    - name: Add conda-forge conda channel
+      command: conda config --add channels conda-forge
+    - name: Add bioconda conda channel
+      command: conda config --add channels bioconda
+    - name: Conda install snakemake from bioconda channel
+      command: conda install -c bioconda -c conda-forge snakemake
+  tags:
+    - pyenv
+    - conda
+    - snakemake
+

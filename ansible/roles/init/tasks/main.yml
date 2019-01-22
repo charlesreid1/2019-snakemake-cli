@@ -1,0 +1,24 @@
+---
+# tasks file for dotfiles
+
+- import_tasks: sudo_master_tasks.yml
+  tags:
+    - dotfiles
+    - sudo
+
+- import_tasks: python_tasks.yml
+  tags:
+    - dotfiles
+    - python
+
+- import_tasks: user_master_tasks.yml
+  tags:
+    - dotfiles
+    - user
+
+- import_tasks: user_bootstrap.yml
+  tags:
+    - dotfiles
+    - user
+    - bootstrap
+
