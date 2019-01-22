@@ -80,3 +80,10 @@ An alternative arrangement would be for users
 to provide a Snakefile via rules in the working
 directory, or via a Github URL or a remote URL.
 
+# Tags
+
+* `v1.0` - initial version, [ctb/2018-snakemake-cli](https://github.com/ctb/2018-snakemake-cli)
+
+* `v2.0` - Snakemake workflow bundled as installable Python package, Snakefile bundled with
+  Python package, command line interface provided to wrap Snakemake API call
+
